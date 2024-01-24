@@ -9,11 +9,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.mariomanhique.khoevent.presentation.screens.home.HomeContent
 
 @Composable
 fun HomeScreen(
     onMenuClicked: () -> Unit = {},
+    homeViewModel: HomeViewModel = hiltViewModel()
 ){
 
     HomeContent(

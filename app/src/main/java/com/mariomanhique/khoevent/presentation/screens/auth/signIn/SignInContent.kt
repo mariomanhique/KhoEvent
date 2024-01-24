@@ -48,6 +48,7 @@ import com.mariomanhique.khoevent.R
 import com.mariomanhique.khoevent.presentation.components.AuthTextEvents
 import com.mariomanhique.khoevent.presentation.components.InputTextField
 import com.mariomanhique.khoevent.presentation.components.KhoButton
+import com.mariomanhique.khoevent.presentation.components.KhoIcon
 import com.mariomanhique.khoevent.utils.fontFamily
 
 
@@ -97,42 +98,18 @@ fun SignInContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(
-//            modifier = Modifier.paddingFromBaseline(top = 30.dp,bottom = 70.dp),
-            text = buildAnnotatedString {
-            withStyle(SpanStyle(
-                fontFamily = fontFamily(
-                    fontName = "Expletus Sans",
-                    fontWeight = FontWeight.ExtraBold,
-                ),
-                color = Color.Green
-            )){
-                append("Kho")
-            }
+        KhoIcon()
 
-            withStyle(SpanStyle(
-                fontFamily = fontFamily(
-                    fontName = "Expletus Sans",
-                    fontWeight = FontWeight.ExtraBold,
-                )
-            )){
-                append("Event")
-            }
-        },
-            style = TextStyle(
-                fontSize = 55.sp
-            )
-        )
-        Text(
-            modifier = Modifier
-                .align(Alignment.Start)
-                .paddingFromBaseline(top = 70.dp, bottom = 20.dp),
-            text = "Entrar",
-           fontFamily =  fontFamily(
-                fontWeight = FontWeight.Bold
-            ),
-            fontSize = 25.sp
-            )
+//        Text(
+//            modifier = Modifier
+//                .align(Alignment.Start)
+//                .paddingFromBaseline(top = 70.dp, bottom = 20.dp),
+//            text = "Entrar",
+//           fontFamily =  fontFamily(
+//                fontWeight = FontWeight.Bold
+//            ),
+//            fontSize = 25.sp
+//            )
 
 
 

@@ -21,18 +21,19 @@ fun SignUpScreen(
     val loadingState by authViewModel.loadingState
 
     SignUpContent(
-        onSignUpClicked = {email,username,password->
-//            authViewModel.signUp(
-//                email = email,
-//                username = username,
-//                password = password,
-//                onSuccess = {
-//                    navigateToHome()
-//                },
-//                onFailure = {
-//
-//                }
-//            )
+        onSignUpClicked = {email,communityName,password, repeatedPassword->
+            authViewModel.signUp(
+                email = email,
+                password = password,
+                communityName = communityName,
+                repeatedPassword = repeatedPassword,
+                onSuccess = {
+                    navigateToHome()
+                },
+                onFailure = {
+
+                }
+            )
         },
         navigateToSignIn = navigateToSignIn
     )

@@ -44,6 +44,7 @@ fun KhoButton(
             shape = MaterialTheme.shapes.medium,
             colors = ButtonDefaults.buttonColors(
                 containerColor = KhoButtonsColors.buttonColor,
+                disabledContentColor = Color.Gray,
             )
         ) {
             Text(
@@ -52,7 +53,8 @@ fun KhoButton(
                 text = stringResource(id = buttonText),
                 fontFamily =  fontFamily(
                 ),
-                fontSize = 20.sp
+                fontSize = 20.sp,
+                color = if (buttonEnabled) KhoButtonsColors.white else Color.Gray
             )
         }
 

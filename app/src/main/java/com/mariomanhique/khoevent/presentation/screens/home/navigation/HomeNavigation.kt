@@ -8,8 +8,8 @@ import com.mariomanhique.khoevent.presentation.screens.home.HomeScreen
 
 const val homeRoute = "home_route"
 
-fun NavController.navigateToHome(navOptions: NavOptions? = null){
-    navigate(homeRoute, navOptions)
+fun NavController.navigateToHome(){
+    navigate(homeRoute)
 }
 
 fun NavGraphBuilder.homeRoute(

@@ -25,17 +25,17 @@ fun SignInScreen(
 
 
     SignInContent(
-        onSignInClicked = { username, password->
-//            authViewModel.signIn(
-//                username = username,
-//                password = password,
-//                onSuccess = {
-//                    navigateToHome()
-//                },
-//                onFailure = {
-//
-//                }
-//            )
+        onSignInClicked = { email, password->
+            authViewModel.signIn(
+                email = email,
+                password = password,
+                onSuccess = {
+                    navigateToHome()
+                },
+                onFailure = {
+
+                }
+            )
 
         },
         navigateToSignUp = navigateToSignUp

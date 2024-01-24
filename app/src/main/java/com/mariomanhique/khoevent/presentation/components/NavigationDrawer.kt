@@ -44,8 +44,7 @@ import com.mariomanhique.khoevent.utils.fontFamily
 @Composable
 fun NavigationDrawer(
     drawerState: DrawerState,
-    onSignOutClicked: () -> Unit,
-    onDeleteAllClicked: () -> Unit,
+    onCommunityClicked: () -> Unit,
     content: @Composable () -> Unit
 ) {
     ModalNavigationDrawer(
@@ -75,7 +74,7 @@ fun NavigationDrawer(
                                           modifier = Modifier.padding(5.dp),
                                         imageVector = Icons.Rounded.Settings,
                                         contentDescription = "",
-                                        tint = MaterialTheme.colorScheme.onSecondary
+                                        tint = KhoButtonsColors.white
                                     )
                                 }
 
@@ -87,25 +86,18 @@ fun NavigationDrawer(
                                         fontFamily = fontFamily(
                                             fontWeight = FontWeight.Bold
                                         ),
-                                        color = MaterialTheme.colorScheme.onSecondary,
+                                        color = KhoButtonsColors.white,
                                     )
                                 )
                             }
 
-                        },
-                        icon = {
-//                            Icon(
-//                                    imageVector = Icons.Rounded.Settings,
-//                                    contentDescription = "",
-//                                    tint = MaterialTheme.colorScheme.onSurface
-//                                )
                         },
                         colors = NavigationDrawerItemDefaults.colors(
                             unselectedContainerColor = KhoButtonsColors.buttonColor
                         ),
                         shape = MaterialTheme.shapes.medium,
                         selected = false,
-                        onClick = onSignOutClicked
+                        onClick = onCommunityClicked
                     )
                 }
             )

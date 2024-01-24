@@ -22,6 +22,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mariomanhique.khoevent.R
+import com.mariomanhique.khoevent.utils.KhoButtonsColors
 import com.mariomanhique.khoevent.utils.fontFamily
 
 @Composable
@@ -53,7 +54,7 @@ fun AuthTextEvents(
                     fontWeight = FontWeight.Bold,
                 ),
                 fontSize = 18.sp,
-                color = Color.Green
+                color = KhoButtonsColors.buttonColor
             )){
                 append(" "+stringResource(id = authAlternativeTextAction))
             }

@@ -2,37 +2,26 @@ package com.mariomanhique.khoevent.presentation.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.calculateEndPadding
-import androidx.compose.foundation.layout.calculateStartPadding
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyGridItemScope
 import androidx.compose.foundation.lazy.grid.LazyGridScope
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -49,7 +38,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Density
-import androidx.compose.ui.unit.LayoutDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -63,9 +51,9 @@ import com.mariomanhique.khoevent.utils.fontFamily
 
 @Composable
 fun HomeContent(
-    onMenuClicked: () -> Unit = {},
-    searchValue: String,
-    onValueChange: (String) -> Unit,
+        onMenuClicked: () -> Unit = {},
+        searchValue: String,
+        onValueChange: (String) -> Unit,
 ) {
 
     LazyVerticalGrid(
@@ -110,9 +98,10 @@ fun HomeContent(
                     onClick = onMenuClicked
                 ) {
                     Image(
-                        painterResource(id = R.drawable.menu),
+                        modifier = Modifier.size(50.dp),
+                        painter = painterResource(id = R.drawable.menu),
                         contentDescription = "",
-                        modifier = Modifier.size(40.dp)
+//                        tint = KhoButtonsColors.buttonColor
                     )
                 }
             }
@@ -176,14 +165,6 @@ fun HomeContent(
 
 }
 
-fun LazyListScope.sublist( list: List<Event>){
-    items(items = list){
-        CommunityCard(id = it.id, title = it.title)
-    }
-}
-
-
-
 @Composable
 fun CommunityCard(
     id: Int,
@@ -209,18 +190,9 @@ fun CommunityCard(
     }
 }
 
-//fun LazyGridItemScope.gridList(
-//
-//){
-//
-//}
 
-fun LazyGridScope.gridList(
-    list: List<Event>
-
-){
-
-    items(list){
+fun LazyGridScope.gridList(eventsList: List<Event>){
+    items(eventsList){
         CommunityCard(id = it.id, title = it.title)
     }
 }

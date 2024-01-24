@@ -40,12 +40,13 @@ import com.mariomanhique.khoevent.R
 import com.mariomanhique.khoevent.presentation.components.AuthTextEvents
 import com.mariomanhique.khoevent.presentation.components.InputTextField
 import com.mariomanhique.khoevent.presentation.components.KhoButton
+import com.mariomanhique.khoevent.presentation.components.KhoIcon
 import com.mariomanhique.khoevent.utils.fontFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpContent(
-    onSignUpClicked: (String, String, String) -> Unit,
+    onSignUpClicked: (String, String, String, String) -> Unit,
     navigateToSignIn: () -> Unit
 ){
 
@@ -56,12 +57,12 @@ fun SignUpContent(
         mutableStateOf("")
     }
 
-    var confirmPassword by remember {
+    var repeatedPassword by remember {
         mutableStateOf("")
     }
 
 
-    var community by remember {
+    var communityName by remember {
         mutableStateOf("")
     }
     var email by remember {
@@ -74,9 +75,15 @@ fun SignUpContent(
         mutableStateOf(false)
     }
 
-//    LaunchedEffect(key1 = community, key2 = email,key3 = password){
-//        buttonEnabled = email.isNotEmpty() && community.isNotEmpty() && password.isNotEmpty()
-//    }
+    val signInRequirements = listOf(communityName,password, email, repeatedPassword)
+    val signUpRememberedRequirements = remember(signInRequirements) {
+        signInRequirements
+    }
+
+    LaunchedEffect(signUpRememberedRequirements){
+        val result = signUpRememberedRequirements.filter { it.isNotEmpty() }
+        buttonEnabled = result.size == 4
+    }
 
     Column {
 
@@ -98,16 +105,18 @@ fun SignUpContent(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text(
-            modifier = Modifier
-                .align(Alignment.Start)
-                .paddingFromBaseline(top = 70.dp, bottom = 20.dp),
-            text = "Cadastro",
-            fontFamily =  fontFamily(
-                fontWeight = FontWeight.Bold
-            ),
-            fontSize = 25.sp
-        )
+        KhoIcon()
+
+//        Text(
+//            modifier = Modifier
+//                .align(Alignment.Start)
+//                .paddingFromBaseline(top = 70.dp, bottom = 20.dp),
+//            text = "Cadastro",
+//            fontFamily =  fontFamily(
+//                fontWeight = FontWeight.Bold
+//            ),
+//            fontSize = 25.sp
+//        )
 
         InputTextField(
             modifier = Modifier
@@ -118,9 +127,9 @@ fun SignUpContent(
                     shape = MaterialTheme.shapes.medium,
                     spotColor = MaterialTheme.colorScheme.primary
                 ),
-            value = community,
+            value = communityName,
             onValueChange = {
-                community = it
+                communityName = it
             },
             leadingIcon = R.drawable.profile,
             placeholder = R.string.community,
@@ -193,9 +202,9 @@ fun SignUpContent(
                     shape = MaterialTheme.shapes.medium,
                     spotColor = MaterialTheme.colorScheme.primary
                 ),
-            value = confirmPassword,
+            value = repeatedPassword,
             onValueChange = {
-                confirmPassword = it
+                repeatedPassword = it
             },
             leadingIcon = R.drawable.lock,
             placeholder = R.string.confirm_password,
@@ -219,8 +228,8 @@ fun SignUpContent(
             buttonText = R.string.sign_up,
             buttonEnabled = buttonEnabled,
             onClicked = {
-                if (community.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty()){
-                    onSignUpClicked(email, community, password)
+                if (communityName.isNotEmpty() && password.isNotEmpty() && email.isNotEmpty() && repeatedPassword.isNotEmpty()){
+                    onSignUpClicked(email, communityName, password, repeatedPassword)
                     keyboardController?.hide()
                 }else{
                     Toast.makeText(context, "Fields shouldn't be empty", Toast.LENGTH_SHORT).show()

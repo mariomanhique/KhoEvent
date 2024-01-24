@@ -11,6 +11,27 @@ class AuthViewModel @Inject constructor(): ViewModel(){
     var loadingState = mutableStateOf(false)
     var authUiState: StateFlow<AuthUiState> = MutableStateFlow<AuthUiState>(AuthUiState.Loading)
 
+    fun signIn(
+        email: String,
+        password: String,
+        onSuccess: ()-> Unit,
+        onFailure: ()-> Unit,
+    ){
+        onSuccess()
+    }
+
+    fun signUp(
+        email: String,
+        communityName: String,
+        password: String,
+        repeatedPassword: String,
+        onSuccess: ()-> Unit,
+        onFailure: ()-> Unit,
+    ){
+        onSuccess()
+    }
+
+
 }
 
 sealed interface AuthUiState{
