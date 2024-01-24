@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">KhoEvent</string>
+    <string name="searchPlaceHolder">Procurar Evento</string>
+    <string name="username">E-mail</string>
+    <string name="community">Sua Communidade</string>
+    <string name="email">Email</string>
+    <string name="password">Senha</string>
+    <string name="confirm_password">Confirme a senha</string>
+    <string name="login_button">Entrar</string>
+    <string name="landing_text">If you have an account,</string>
+    <string name="sign_in_text">Ja tem conta?</string>
+    <string name="sign_In">Entrar</string>
+    <string name="sign_up">Cadastre-se</string>
+    <string name="sign_up_text">Não tem conta?</string>
+
+    <string name="your_community_button">SUA COMUNIDADE</string>
+    <string name="communities_section">Comunidades</string>
+    <string name="next_events">Próximos Eventos</string>
+
+
+</resources>
