@@ -1,4 +1,4 @@
-package com.mariomanhique.africanpages.data.repository.userDataRepository
+package com.mariomanhique.khoevent.data.repository.userDataRepository
 
 import androidx.datastore.core.Serializer
 import com.mariomanhique.khoevent.model.UserPreferences

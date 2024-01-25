@@ -124,9 +124,7 @@ dependencies {
     implementation ("com.maxkeppeler.sheets-compose-dialogs:clock:1.0.2")
 
     implementation("androidx.compose.material3:material3-window-size-class")
-//    implementation("androidx.tracing:tracing-ktx:1.1.0")
 
-//    implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.datastore:datastore:1.0.0")
     implementation("com.google.protobuf:protobuf-javalite:3.24.4")
     implementation("com.google.protobuf:protobuf-kotlin-lite:3.24.4")
@@ -137,8 +135,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
+//    implementation ("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.4.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0" )
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
 
-//    implementation("com.squareup.okhttp3:logging??-interceptor:4.12.0" )
-//    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
+    implementation("androidx.work:work-runtime-ktx:2.9.0")
+
 }

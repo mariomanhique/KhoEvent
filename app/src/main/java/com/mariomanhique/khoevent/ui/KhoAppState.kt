@@ -8,6 +8,7 @@ import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.mariomanhique.khoevent.presentation.screens.auth.signIn.navigation.navigateToSignIn
 import com.mariomanhique.khoevent.presentation.screens.community.navigation.navigateToCommunity
 import kotlinx.coroutines.CoroutineScope
 
@@ -44,5 +45,9 @@ class KhoAppState(
 
     fun navigateToCommunityEvents(){
         navController.navigateToCommunity()
+    }
+
+    fun navigateToSignIn(){
+        navController.navigateToSignIn()
     }
 }

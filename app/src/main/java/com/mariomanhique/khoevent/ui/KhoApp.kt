@@ -56,7 +56,7 @@ fun KhoContent(
     NavigationDrawer(
         drawerState = drawerState,
         onCommunityClicked = {
-            appState.navigateToCommunityEvents()
+            appState.navigateToSignIn()
             scope.launch {
                 drawerState.close()
             }

@@ -43,6 +43,8 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.mariomanhique.khoevent.R
+import com.mariomanhique.khoevent.model.Communities
+import com.mariomanhique.khoevent.model.CommunityItem
 import com.mariomanhique.khoevent.model.Event
 import com.mariomanhique.khoevent.model.eventList
 import com.mariomanhique.khoevent.presentation.components.ScreenSection
@@ -51,6 +53,8 @@ import com.mariomanhique.khoevent.utils.fontFamily
 
 @Composable
 fun HomeContent(
+        communities: Communities,
+        events: List<Event>,
         onMenuClicked: () -> Unit = {},
         searchValue: String,
         onValueChange: (String) -> Unit,
@@ -117,20 +121,10 @@ fun HomeContent(
                 title = R.string.communities_section
             ) {
                 CommunityCardListList(
-                    eventList
+                    communities
                 )
             }
         }
-
-//        item {
-//            ScreenSection(title = R.string.next_events) {
-//                EventsVerticalGridList(list = eventList)
-//            }
-//        }
-
-//        item {
-//
-//        }
 
 
         item(
@@ -153,7 +147,7 @@ fun HomeContent(
             )
         }
 
-        gridList(eventList)
+        gridList(events)
 
         item {
             Spacer(modifier = Modifier.height(8.dp))
@@ -191,8 +185,8 @@ fun CommunityCard(
 }
 
 
-fun LazyGridScope.gridList(eventsList: List<Event>){
-    items(eventsList){
+fun LazyGridScope.gridList(communities: List<Event>){
+    items(communities){
         CommunityCard(id = it.id, title = it.title)
     }
 }
@@ -223,16 +217,16 @@ fun EventsVerticalGridList(
 
 @Composable
 fun CommunityCardListList(
-    eventsList:List<Event>
+    communities: Communities
 ){
     LazyRow(
         contentPadding = PaddingValues(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp),
     ){
-        items(items = eventsList){
+        items(items = communities){
             CommunityCard(
                 it.id,
-                it.title
+                it.name
             )
         }
     }

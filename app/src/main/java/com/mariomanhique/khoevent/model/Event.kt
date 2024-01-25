@@ -1,54 +1,13 @@
 package com.mariomanhique.khoevent.model
 
 data class Event(
+    val description: String,
+    val endTime: String,
+    val eventDate: String,
+    val eventLimit: Int,
     val id: Int,
-    val title: String,
-    val coverUrl: String,
+    val startTime: String,
+    val title: String
 )
 
-val eventList = listOf(
-    Event(
-        id = 1,
-        title = "Moz Dev",
-        coverUrl = ""
-    ),
-    Event(
-        id = 1,
-        title = "Moz Dev",
-        coverUrl = ""
-    ),
-    Event(
-        id = 1,
-        title = "Moz Dev",
-        coverUrl = ""
-    ), Event(
-        id = 1,
-        title = "Moz Dev",
-        coverUrl = ""
-    ),
-    Event(
-        id = 1,
-        title = "Moz Dev",
-        coverUrl = ""
-    ),
-    Event(
-        id = 1,
-        title = "Moz Dev",
-        coverUrl = ""
-    ),
-    Event(
-        id = 1,
-        title = "Moz Dev",
-        coverUrl = ""
-    ),
-    Event(
-        id = 1,
-        title = "Moz Dev",
-        coverUrl = ""
-    ),
-    Event(
-        id = 1,
-        title = "Moz Dev",
-        coverUrl = ""
-    )
-)
+val eventList = listOf(Event("","","",100,1,"",""))
