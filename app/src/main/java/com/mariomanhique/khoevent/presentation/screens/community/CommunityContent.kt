@@ -16,12 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.mariomanhique.khoevent.R
+import com.mariomanhique.khoevent.model.Event
 import com.mariomanhique.khoevent.model.eventList
 import com.mariomanhique.khoevent.presentation.components.SearchBar
 import com.mariomanhique.khoevent.presentation.screens.home.EventsVerticalGridList
 
 @Composable
 fun CommunityContent(
+    eventsList: List<Event>,
     searchValue: String,
     onValueChange: (String) -> Unit,
 ){
@@ -42,6 +44,6 @@ fun CommunityContent(
 
         }
         Spacer(modifier = Modifier.height(16.dp))
-        EventsVerticalGridList(list = eventList)
+        EventsVerticalGridList(list = eventsList)
     }
 }

@@ -203,7 +203,6 @@ fun EventsVerticalGridList(
             ): List<Int> {
                 val firstColumn = (availableSize - spacing) * 2 / 4 // this gives us the value of the second grid times 2
                 val secondColumn = availableSize - spacing - firstColumn
-                val thirdColumn = availableSize - spacing - firstColumn - secondColumn
 
                 return listOf(firstColumn, secondColumn)
             }

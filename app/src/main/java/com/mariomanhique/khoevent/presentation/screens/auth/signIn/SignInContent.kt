@@ -66,7 +66,7 @@ fun SignInContent(
     var password by remember {
         mutableStateOf("")
     }
-    var username by remember {
+    var email by remember {
         mutableStateOf("")
     }
     var passwordVisibility by remember {
@@ -76,8 +76,8 @@ fun SignInContent(
         mutableStateOf(false)
     }
 
-    LaunchedEffect(key1 = username, key2 = password){
-        buttonEnabled = username.isNotEmpty() && password.isNotEmpty()
+    LaunchedEffect(key1 = email, key2 = password){
+        buttonEnabled = email.isNotEmpty() && password.isNotEmpty()
     }
     Column {
 
@@ -122,9 +122,9 @@ fun SignInContent(
                     shape = MaterialTheme.shapes.medium,
                     spotColor = MaterialTheme.colorScheme.primary
                 ),
-            value = username,
+            value = email,
             onValueChange = {
-                username = it
+                email = it
             },
             leadingIcon = R.drawable.email,
             placeholder = R.string.username,
@@ -170,8 +170,8 @@ fun SignInContent(
             buttonText = R.string.sign_In,
             buttonEnabled = buttonEnabled,
             onClicked = {
-                if (username.isNotEmpty() && password.isNotEmpty()){
-                    onSignInClicked(username, password)
+                if (email.isNotEmpty() && password.isNotEmpty()){
+                    onSignInClicked(email, password)
                                     keyboardController?.hide()
                 }else{
                     Toast.makeText(context, "Fields shouldn't be empty", Toast.LENGTH_SHORT).show()

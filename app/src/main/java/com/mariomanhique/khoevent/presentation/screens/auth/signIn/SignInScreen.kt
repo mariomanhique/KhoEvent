@@ -26,16 +26,16 @@ fun SignInScreen(
 
     SignInContent(
         onSignInClicked = { email, password->
-//            authViewModel.signIn(
-//                email = email,
-//                password = password,
-//                onSuccess = {
-//                    navigateToHome()
-//                },
-//                onFailure = {
-//
-//                }
-//            )
+            authViewModel.signIn(
+                email = email,
+                password = password,
+                onSuccess = {
+                    navigateToHome()
+                },
+                onFailure = {
+
+                }
+            )
 
         },
         navigateToSignUp = navigateToSignUp

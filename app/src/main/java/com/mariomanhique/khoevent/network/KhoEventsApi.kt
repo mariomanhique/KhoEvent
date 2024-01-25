@@ -1,14 +1,13 @@
 package com.mariomanhique.khoevent.network
 
+import com.mariomanhique.khoevent.model.AuthenticationRequest
 import com.mariomanhique.khoevent.model.Communities
 import com.mariomanhique.khoevent.model.Event
-import com.squareup.moshi.Json
-import kotlinx.coroutines.flow.Flow
-import retrofit2.Call
+import com.mariomanhique.khoevent.model.EventRequest
+import com.mariomanhique.khoevent.model.TokenResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
-import retrofit2.http.HEAD
 import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.POST
@@ -19,30 +18,26 @@ import javax.inject.Singleton
 interface KhoEventsApi {
 
     @GET("communities")
-   suspend fun getCommunities(): Communities
-
+    suspend fun getCommunities(): Communities
 
     @GET("events")
     suspend fun getEvents():List<Event>
 
-
+    @GET("events/{id}")
+    suspend fun getEventsById():List<Event>
 
     @POST("auth/authenticate")
     suspend fun authenticateUser(@Body request: AuthenticationRequest): Response<TokenResponse>
 
 
-//            @GET("events")
-//    suspend fun getEvents(
-//        @Path(value = "id") communityId: Int
-//    ):
+    @POST("events/{id}")
+    suspend fun createEvent(
+        @Header("Authorization") authorizationHeader: String,
+        @Path("id") communityId: Long,
+        @Body request: EventRequest
+    ): Response<String>
 }
 
 
-data class AuthenticationRequest(
-    val email: String,
-    val password: String
-)
 
-data class TokenResponse(
-    val accessToken: String
-)
+

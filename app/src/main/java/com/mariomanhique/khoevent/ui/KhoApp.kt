@@ -30,10 +30,12 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun KhoApp(
+    accessToken: String,
     windowSizeClass: WindowSizeClass,
 //    connectivity: NetworkConnectivityObserver,
 ){
     KhoContent(
+        accessToken = accessToken,
         windowSizeClass = windowSizeClass
     )
 }
@@ -42,6 +44,7 @@ fun KhoApp(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KhoContent(
+    accessToken: String,
     windowSizeClass: WindowSizeClass,
     appState: KhoAppState = rememberKhoAppState(
         windowSizeClass = windowSizeClass,
@@ -56,7 +59,13 @@ fun KhoContent(
     NavigationDrawer(
         drawerState = drawerState,
         onCommunityClicked = {
-            appState.navigateToSignIn()
+            if (accessToken.isNotEmpty()){
+                appState.navigateToCommunityEvents()
+
+            }else{
+                appState.navigateToSignIn()
+            }
+
             scope.launch {
                 drawerState.close()
             }

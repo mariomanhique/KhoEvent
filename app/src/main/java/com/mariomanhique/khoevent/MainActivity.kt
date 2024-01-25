@@ -55,7 +55,10 @@ class MainActivity : ComponentActivity() {
             Log.d("Token", "onCreate: ${checkAccessToken(uiState)}")
 
             KhoEventTheme {
-                KhoApp(windowSizeClass = calculateWindowSizeClass(activity = this))
+                KhoApp(
+                    windowSizeClass = calculateWindowSizeClass(activity = this),
+                    accessToken = checkAccessToken(uiState = uiState)
+                )
             }
         }
     }

@@ -9,7 +9,6 @@ import com.mariomanhique.khoevent.data.repository.userDataRepository.UserDataRep
 import com.mariomanhique.khoevent.data.repository.userDataRepository.UserDataRepositoryImpl
 import com.mariomanhique.khoevent.model.UserPreferences
 import com.mariomanhique.khoevent.network.KhoEventsApi
-import com.mariomanhique.khoevent.network.TokenInterceptor
 import com.mariomanhique.khoevent.utils.ApplicationScope
 import com.mariomanhique.khoevent.utils.Constants
 import com.mariomanhique.khoevent.utils.Dispatcher
@@ -33,10 +32,12 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(tokenInterceptor: TokenInterceptor): OkHttpClient {
+    fun provideOkHttpClient(
+//        tokenInterceptor: TokenInterceptor
+    ): OkHttpClient {
         return OkHttpClient.Builder()
-            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .addInterceptor(tokenInterceptor)
+            .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.HEADERS))
+//            .addInterceptor(tokenInterceptor)
             .build()
     }
 

@@ -2,6 +2,7 @@ package com.mariomanhique.khoevent.data.repository
 
 import com.mariomanhique.khoevent.model.Communities
 import com.mariomanhique.khoevent.model.Event
+import com.mariomanhique.khoevent.model.EventRequest
 import retrofit2.Call
 
 interface KhoEventsRepoInterface {
@@ -11,5 +12,11 @@ interface KhoEventsRepoInterface {
     suspend fun getEvents(): List<Event>
 
     suspend fun authenticateUser(email: String, password: String): String?
+
+    suspend fun createEvent(
+        authorizationHeader: String,
+        communityId: Long,
+        eventRequest: EventRequest
+    ): String?
 
 }

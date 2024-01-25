@@ -1,7 +1,5 @@
 package com.mariomanhique.khoevent.data.repository.userDataRepository
 
-import com.mariomanhique.khoevent.model.DarkThemeConfig
-import com.mariomanhique.khoevent.model.ThemeBrand
 import com.mariomanhique.khoevent.model.UserData
 import kotlinx.coroutines.flow.Flow
 
@@ -15,6 +13,7 @@ interface UserDataRepository {
      * Sets the desired theme brand.
      */
 
-    suspend fun setAccessToken(accessToken:String)
+    suspend fun setAccessToken(accessToken: String)
+    suspend fun setCommunityEmail(email: String)
 
 }

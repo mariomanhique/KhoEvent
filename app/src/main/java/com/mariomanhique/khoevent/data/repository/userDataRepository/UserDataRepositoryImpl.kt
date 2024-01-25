@@ -13,7 +13,8 @@ class UserDataRepositoryImpl @Inject constructor(
     override val userData = userPreferences.data
         .map {
             UserData(
-                accessToken = it.accessToken
+                accessToken = it.accessToken,
+                communityEmail = it.communityEmail
             )
         }
 
@@ -22,6 +23,14 @@ class UserDataRepositoryImpl @Inject constructor(
         userPreferences.updateData {
             it.copy(
                 accessToken = accessToken
+            )
+        }
+    }
+
+    override suspend fun setCommunityEmail(communityEmail: String) {
+        userPreferences.updateData {
+            it.copy(
+                communityEmail = communityEmail
             )
         }
     }

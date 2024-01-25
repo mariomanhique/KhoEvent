@@ -24,13 +24,13 @@ fun HomeScreen(
 ){
 
     val communities by homeViewModel.data.collectAsStateWithLifecycle()
-    val events by homeViewModel.events
+    val events by homeViewModel.events.collectAsStateWithLifecycle()
 
     when(communities){
         is Result.Success -> {
             HomeContent(
                 communities = (communities as Result.Success<Communities>).data,
-                events = (events as Result.Success).data,
+                events = events,
                 onMenuClicked = onMenuClicked,
                 searchValue = "",
                 onValueChange = {}

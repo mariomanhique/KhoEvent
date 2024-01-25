@@ -1,11 +1,10 @@
 package com.mariomanhique.khoevent.presentation.screens.home
 
-import android.util.Log
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mariomanhique.khoevent.data.repository.KhoEventsRepoImpl
+import com.mariomanhique.khoevent.data.repository.userDataRepository.UserDataRepository
 import com.mariomanhique.khoevent.model.Communities
 import com.mariomanhique.khoevent.model.Event
 import com.mariomanhique.khoevent.model.Result
@@ -16,11 +15,13 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(private val repository: KhoEventsRepoImpl):ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val repository: KhoEventsRepoImpl,
+):ViewModel() {
 
     private var _data: MutableStateFlow<Result<Communities>> = MutableStateFlow(Result.Idle)
-    private var _events: MutableState<Result<List<Event>>> = mutableStateOf(Result.Idle)
-    val  events = _events
+    private var _events: MutableStateFlow<List<Event>> = MutableStateFlow(emptyList())
+    val  events = _events.asStateFlow()
     val data = _data.asStateFlow()
 
     init {
@@ -42,13 +43,12 @@ class HomeViewModel @Inject constructor(private val repository: KhoEventsRepoImp
 
     fun getEvents(){
         viewModelScope.launch {
-            _events.value = Result.Loading
+//            _events.value = Result.Loading
             val result = repository.getEvents()
             if (result.isNotEmpty()){
-                _events.value = Result.Success(data = result)
-            }else{
-                _events.value = Result.Error()
+                _events.value = result
             }
         }
     }
+
 }

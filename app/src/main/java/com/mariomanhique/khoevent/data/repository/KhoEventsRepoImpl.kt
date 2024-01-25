@@ -1,12 +1,12 @@
 package com.mariomanhique.khoevent.data.repository
 
 import android.util.Log
+import com.mariomanhique.khoevent.model.AuthenticationRequest
 import com.mariomanhique.khoevent.model.Communities
 import com.mariomanhique.khoevent.model.Event
-import com.mariomanhique.khoevent.network.AuthenticationRequest
+import com.mariomanhique.khoevent.model.EventRequest
 import com.mariomanhique.khoevent.network.KhoEventsApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import java.net.HttpURLConnection
 import javax.inject.Inject
 
 class KhoEventsRepoImpl @Inject constructor (private val api: KhoEventsApi): KhoEventsRepoInterface {
@@ -37,6 +37,36 @@ class KhoEventsRepoImpl @Inject constructor (private val api: KhoEventsApi): Kho
       } catch (e: Exception){
           e.message.toString()
       }
+
+    }
+
+    override suspend fun createEvent(
+        authorizationHeader: String,
+        communityId: Long,
+        eventRequest: EventRequest
+    ): String? {
+        return try {
+           val response = api.createEvent(
+               authorizationHeader = authorizationHeader,
+               communityId = communityId,
+               request = eventRequest
+               )
+
+            if (response.isSuccessful){
+                Log.d("Code", "createEvent: Success ${response.code()}")
+                response.code().toString()
+            } else{
+                Log.d("Code", "createEvent: Error ${response.headers()}")
+                Log.d("Code", "createEvent: Error ${response.raw()}")
+                Log.d("Code", "createEvent: Error ${response.code()}")
+                Log.d("Code", "createEvent: Error ${response.errorBody()}")
+                response.errorBody().toString()
+            }
+        } catch (e: Exception){
+            e.printStackTrace()
+            e.message.toString()
+        }
+
 
     }
 
