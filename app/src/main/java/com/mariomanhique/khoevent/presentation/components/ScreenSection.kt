@@ -32,12 +32,12 @@ fun ScreenSection(
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+//            horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
                 text = stringResource(id = title),
                 style = MaterialTheme.typography.titleLarge.copy(
-                    fontSize = 19.sp,
+                    fontSize = 20.sp,
                     fontFamily = fontFamily(
                         fontWeight = FontWeight.Bold
                     ),

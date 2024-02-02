@@ -2,6 +2,7 @@ package com.mariomanhique.khoevent.presentation.screens.home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
@@ -37,6 +39,7 @@ import androidx.compose.ui.platform.rememberNestedScrollInteropConnection
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Density
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -44,20 +47,21 @@ import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.mariomanhique.khoevent.R
 import com.mariomanhique.khoevent.model.Communities
-import com.mariomanhique.khoevent.model.CommunityItem
 import com.mariomanhique.khoevent.model.Event
-import com.mariomanhique.khoevent.model.eventList
+import com.mariomanhique.khoevent.presentation.components.EventCard
 import com.mariomanhique.khoevent.presentation.components.ScreenSection
 import com.mariomanhique.khoevent.presentation.components.SearchBar
+import com.mariomanhique.khoevent.utils.KhoButtonsColors
 import com.mariomanhique.khoevent.utils.fontFamily
 
 @Composable
 fun HomeContent(
-        communities: Communities,
-        events: List<Event>,
-        onMenuClicked: () -> Unit = {},
-        searchValue: String,
-        onValueChange: (String) -> Unit,
+    communities: Communities,
+    navigateToEventDetails: () -> Unit,
+    events: List<Event>,
+    onMenuClicked: () -> Unit = {},
+    searchValue: String,
+    onSearchValueChange: (String) -> Unit,
 ) {
 
     LazyVerticalGrid(
@@ -68,17 +72,23 @@ fun HomeContent(
             ): List<Int> {
                 val firstColumn = (availableSize - spacing) * 2 / 4 // this gives us the value of the second grid times 2
                 val secondColumn = availableSize - spacing - firstColumn
-                val thirdColumn = availableSize - spacing - firstColumn - secondColumn
 
                 return listOf(firstColumn, secondColumn)
             }
         },
+        contentPadding = PaddingValues(10.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp),
         modifier = Modifier
             .fillMaxSize()
             .nestedScroll(rememberNestedScrollInteropConnection())
     ){
 
-        item {
+        item(
+            span = {
+                GridItemSpan(maxLineSpan)
+            }
+        ) {
             Spacer(modifier = Modifier.height(16.dp))
         }
 
@@ -95,7 +105,7 @@ fun HomeContent(
                         .padding(horizontal = 16.dp),
                     searchValue = searchValue,
                     onSearchClicked = {},
-                    onValueChange = onValueChange
+                    onValueChange = onSearchValueChange
                 )
 
                 IconButton(
@@ -147,13 +157,20 @@ fun HomeContent(
             )
         }
 
-        gridList(events)
-
-        item {
-            Spacer(modifier = Modifier.height(8.dp))
+        items(events){
+            EventCard(
+                title = it.title,
+                navigateToEventDetails = navigateToEventDetails
+            )
         }
 
-
+        item(
+            span = {
+                GridItemSpan(maxLineSpan)
+            }
+        ) {
+            Spacer(modifier = Modifier.height(8.dp))
+        }
 
     }
 
@@ -161,127 +178,78 @@ fun HomeContent(
 
 @Composable
 fun CommunityCard(
-    id: Int,
-    title: String,
+    name: String,
+    eventCount: String,
 ){
-    Surface {
-        Column {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize(),
+        shape = MaterialTheme.shapes.medium,
+        color = MaterialTheme.colorScheme.inverseOnSurface
+    ) {
+        Column(
+            modifier = Modifier
+                .width(250.dp)
+                .height(350.dp)
+                .clickable {
+                }
+                .padding(10.dp)
+        ) {
             AsyncImage(
                 modifier = Modifier
-                    .width(200.dp)
-                    .height(200.dp)
-                    .padding(all = 8.dp),
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(R.drawable.cover_book)
-                    .crossfade(true)
+                    .clip(MaterialTheme.shapes.medium)
+                    .height(240.dp),
+                    model = ImageRequest.Builder(LocalContext.current)
+                    .data(R.drawable.mozdev)
+                    .crossfade(enable = true)
                     .build(),
                 contentScale = ContentScale.Crop,
                 contentDescription = "Gallery Image"
             )
-            Text(text = title)
-            Text(text = "Eventos:16")
-        }
-    }
-}
-
-
-fun LazyGridScope.gridList(communities: List<Event>){
-    items(communities){
-        CommunityCard(id = it.id, title = it.title)
-    }
-}
-
-@Composable
-fun EventsVerticalGridList(
-    list: List<Event>
-){
-    LazyVerticalGrid(
-        columns = object : GridCells{
-            override fun Density.calculateCrossAxisCellSizes(
-                availableSize: Int,
-                spacing: Int
-            ): List<Int> {
-                val firstColumn = (availableSize - spacing) * 2 / 4 // this gives us the value of the second grid times 2
-                val secondColumn = availableSize - spacing - firstColumn
-
-                return listOf(firstColumn, secondColumn)
+            Column(
+                modifier = Modifier
+                    .padding(vertical = 10.dp)
+            ) {
+                Text(text = name,
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontSize = 25.sp,
+                        fontFamily = fontFamily(
+                            fontWeight = FontWeight.Bold
+                        ),
+                        color = KhoButtonsColors.white
+                    ),
+                    overflow = TextOverflow.Ellipsis
+                )
+                Text(text = "Eventos: $eventCount",
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontSize = 20.sp,
+                        fontFamily = fontFamily(),
+                        color = MaterialTheme.colorScheme.secondary
+                    )
+                )
             }
         }
-    ){
-        items(items = list){
-            CommunityCard(id = it.id, title = it.title)
-        }
     }
 }
+
+
 
 @Composable
 fun CommunityCardListList(
     communities: Communities
 ){
     LazyRow(
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp),
+//        contentPadding = PaddingValues(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
     ){
         items(items = communities){
             CommunityCard(
-                it.id,
-                it.name
+                name = it.name,
+                eventCount = "15"
             )
         }
     }
 }
-@Composable
-fun ContinueReadingCard(
-    image:String,
-    title: String,
-    authors: List<String>,
-    bookNumber: Int? = null,
-    maxBookNumber: Int? = null
-){
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(1f)
-            .clip(shape = MaterialTheme.shapes.medium)
-            .background(color = MaterialTheme.colorScheme.surface)
-    ) {
-       Surface(
-           modifier = Modifier
-               .width(80.dp)
-               .height(100.dp)
 
-           ,
-           color = Color.Cyan
-       ) {
-           AsyncImage(
-               modifier = Modifier
-                   .width(80.dp)
-                   .height(100.dp)
-                   .padding(all = 16.dp),
-               model = ImageRequest.Builder(LocalContext.current)
-                   .data(image)
-                   .crossfade(true)
-                   .build(),
-               contentScale = ContentScale.Crop,
-               contentDescription = "Gallery Image"
-           )
-       }
-
-        Column(
-            modifier = Modifier
-                .padding(all = 8.dp)
-        ) {
-            Text(text = title)
-
-            var authorsName =""
-            authors.forEach {
-                authorsName += "$it& "
-            }
-            Text(text = authorsName.removeSuffix("& "))
-            LinearProgressIndicator(progress = 1f)
-            Text(text = "UserBook $bookNumber of $maxBookNumber")
-
-        }
-    }
-}
 
 

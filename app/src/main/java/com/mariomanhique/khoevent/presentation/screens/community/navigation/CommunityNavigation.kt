@@ -12,10 +12,13 @@ fun NavController.navigateToCommunity(){
 
 fun NavGraphBuilder.communityRoute(
     onValueChange: (String) -> Unit,
-){
+    navigateToEventDetails: () -> Unit,
+
+    ){
     composable(communityRoute){
         CommunityScreen(
-            onValueChange = onValueChange
+            onValueChange = onValueChange,
+            navigateToEventDetails = navigateToEventDetails
         )
     }
 }

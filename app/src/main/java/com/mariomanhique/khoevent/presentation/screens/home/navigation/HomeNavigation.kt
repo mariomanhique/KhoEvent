@@ -9,15 +9,22 @@ import com.mariomanhique.khoevent.presentation.screens.home.HomeScreen
 const val homeRoute = "home_route"
 
 fun NavController.navigateToHome(){
-    navigate(homeRoute)
+    navigate(homeRoute){
+        popUpTo(homeRoute){
+            inclusive = true
+        }
+    }
 }
 
 fun NavGraphBuilder.homeRoute(
     onMenuClicked: () -> Unit = {},
+    navigateToEventDetails: () -> Unit,
 ){
     composable(homeRoute){
         HomeScreen(
-            onMenuClicked = onMenuClicked
+            onMenuClicked = onMenuClicked,
+            navigateToEventDetails = navigateToEventDetails
+
         )
     }
 }

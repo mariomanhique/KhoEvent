@@ -10,6 +10,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -29,6 +30,7 @@ fun InputTextField(
     modifier: Modifier = Modifier,
     value: String,
     keyboardType: KeyboardType,
+    colors: TextFieldColors,
     trailingIcon: ImageVector? = null,
     @DrawableRes leadingIcon: Int? = null,
     iconTint: Color? = null,
@@ -82,11 +84,7 @@ fun InputTextField(
         }
         ,
         shape = MaterialTheme.shapes.medium,
-        colors = TextFieldDefaults.textFieldColors(
-            containerColor = MaterialTheme.colorScheme.surface,
-            unfocusedIndicatorColor = Color.Unspecified,
-            focusedIndicatorColor = Color.Unspecified
-        ),
+        colors = colors,
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Next,
             keyboardType =keyboardType

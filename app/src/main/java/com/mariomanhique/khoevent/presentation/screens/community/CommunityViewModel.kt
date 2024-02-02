@@ -24,23 +24,28 @@ class CommunityViewModel @Inject constructor(
     private val userDataRepository: UserDataRepository,
 ):ViewModel() {
 
-    private var _data: MutableStateFlow<Result<Communities>> = MutableStateFlow(Result.Idle)
     private var _events: MutableStateFlow<Result<List<Event>>> = MutableStateFlow(Result.Idle)
     val  events = _events.asStateFlow()
-    val data = _data.asStateFlow()
 
     init {
-        createEvent(
-           onSuccess =  {},
-           onFailure =  {},
-        )
-        getEvents()
+        getEventsByCommunityId()
     }
 
-    private fun getEvents(){
+
+
+    private fun getEventsByCommunityId(){
+
         viewModelScope.launch {
+            val communityEmail: String = userDataRepository.userData.map {
+                it.communityEmail
+            }.first()
+
+            val filteredCommunity = repository.getCommunities().first {
+                it.email == communityEmail
+            }
+
             _events.value = Result.Loading
-            val result = repository.getEvents()
+            val result = repository.getEventsByCommunityId(filteredCommunity.id)
             if (result.isNotEmpty()){
                 _events.value = Result.Success(data = result)
             }else{
@@ -49,56 +54,11 @@ class CommunityViewModel @Inject constructor(
         }
     }
 
-//    fun createEvent(
-////        eventRequest: EventRequest,
-//        onSuccess: ()-> Unit,
-//        onFailure: ()-> Unit,
-//    ){
-//        viewModelScope.launch {
-//            val communityEmail: String = userDataRepository.userData.map {
-//                it.communityEmail
-//            }.first()
-//
-//            val filteredCommunity = repository.getCommunities().first {
-//                it.email == communityEmail
-//            }
-//
-//            val communityFlow = flowOf{filteredCommunity}
-//            val accessToken: Flow<String> = userDataRepository.userData.map {
-//                it.accessToken
-//            }
-//            combine(
-//                communityFlow,
-//                accessToken,
-//                ::Pair,
-//            )
-//            .map {(community, token)->
-//               val result = repository.createEvent(
-//                   authorizationHeader = "Bearer $token",
-//                    communityId = community.,
-//                    eventRequest = EventRequest(
-//                        description = "Evento Teste Description",
-//                        endTime = "15:00",
-//                        eventDate = "2024-02-24",
-//                        startTime = "10:00",
-//                        title = " Evento Teste",
-//                        eventLimit = 20
-//                    )
-//                )
-//
-//                if (result == "201"){
-//                    onSuccess()
-//                }else{
-//                    onFailure()
-//                }
-//
-//            }
-//        }
-//    }
 
-    private fun createEvent(
-        onSuccess: () -> Unit,
-        onFailure: () -> Unit
+     fun createEvent(
+         eventRequest: EventRequest,
+         onSuccess: () -> Unit,
+         onFailure: () -> Unit
     ) {
         viewModelScope.launch {
             val communityEmail: String = userDataRepository.userData.map {
@@ -113,22 +73,10 @@ class CommunityViewModel @Inject constructor(
                 it.accessToken
             }.first()
 
-
-            Log.d("Test", "createEvent:$accessToken")
-            Log.d("Test", "createEvent:$communityEmail")
-            Log.d("Test", "createEvent:${filteredCommunity.id}")
-
             val result = repository.createEvent(
                 authorizationHeader = "Bearer $accessToken",
                 communityId = filteredCommunity.id.toLong(),
-                eventRequest = EventRequest(
-                    description = "Evento Teste Description",
-                    endTime = "15:00",
-                    date = "2024-02-24",
-                    startTime = "10:00",
-                    title = "Evento Teste",
-                    eventLimit = 20,
-                )
+                eventRequest = eventRequest
             )
 
             if (result == HttpURLConnection.HTTP_CREATED.toString()) {

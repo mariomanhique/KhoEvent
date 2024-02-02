@@ -20,7 +20,7 @@ class HomeViewModel @Inject constructor(
 ):ViewModel() {
 
     private var _data: MutableStateFlow<Result<Communities>> = MutableStateFlow(Result.Idle)
-    private var _events: MutableStateFlow<List<Event>> = MutableStateFlow(emptyList())
+    private var _events: MutableStateFlow<Result<List<Event>>> = MutableStateFlow(Result.Idle)
     val  events = _events.asStateFlow()
     val data = _data.asStateFlow()
 
@@ -43,10 +43,12 @@ class HomeViewModel @Inject constructor(
 
     fun getEvents(){
         viewModelScope.launch {
-//            _events.value = Result.Loading
+            _events.value = Result.Loading
             val result = repository.getEvents()
             if (result.isNotEmpty()){
-                _events.value = result
+                _events.value = Result.Success(data = result)
+            }else{
+                _events.value = Result.Error()
             }
         }
     }

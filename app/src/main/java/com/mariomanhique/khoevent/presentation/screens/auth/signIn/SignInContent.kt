@@ -14,11 +14,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.KeyboardBackspace
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -49,10 +51,11 @@ import com.mariomanhique.khoevent.presentation.components.AuthTextEvents
 import com.mariomanhique.khoevent.presentation.components.InputTextField
 import com.mariomanhique.khoevent.presentation.components.KhoButton
 import com.mariomanhique.khoevent.presentation.components.KhoIcon
+import com.mariomanhique.khoevent.utils.KhoButtonsColors
 import com.mariomanhique.khoevent.utils.fontFamily
 
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun SignInContent(
     onSignInClicked: (String, String) -> Unit,
@@ -116,17 +119,17 @@ fun SignInContent(
         InputTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
-                .shadow(
-                    elevation = 2.dp,
-                    shape = MaterialTheme.shapes.medium,
-                    spotColor = MaterialTheme.colorScheme.primary
-                ),
+                .padding(8.dp),
             value = email,
             onValueChange = {
                 email = it
             },
             leadingIcon = R.drawable.email,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                cursorColor = KhoButtonsColors.buttonColor,
+                unfocusedIndicatorColor = Color.Unspecified,
+                focusedIndicatorColor = Color.Unspecified),
             placeholder = R.string.username,
             focusManager = focusManager,
             keyboardType = KeyboardType.Text,
@@ -137,18 +140,18 @@ fun SignInContent(
         InputTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
-                .shadow(
-                    elevation = 2.dp,
-                    shape = MaterialTheme.shapes.medium,
-                    spotColor = MaterialTheme.colorScheme.primary
-                ),
+                .padding(8.dp),
             value = password,
             onValueChange = {
                 password = it
             },
             leadingIcon = R.drawable.lock,
             placeholder = R.string.password,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                cursorColor = KhoButtonsColors.buttonColor,
+                unfocusedIndicatorColor = Color.Unspecified,
+                focusedIndicatorColor = Color.Unspecified),
             trailingIcon = Icons.Default.RemoveRedEye,
             iconTint = if(passwordVisibility)
                          MaterialTheme.colorScheme.secondary

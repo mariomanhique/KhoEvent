@@ -24,6 +24,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -40,12 +41,6 @@ object AppModule {
 //            .addInterceptor(tokenInterceptor)
             .build()
     }
-
-//    @Singleton
-//    @Provides
-//    fun provideTokenInterceptor(tokenInterceptor: TokenInterceptor): TokenInterceptor {
-//        return tokenInterceptor
-//    }
 
 
     @Singleton
@@ -70,9 +65,6 @@ object AppModule {
         DataStoreFactory.create(
             serializer = userPreferencesSerializer,
             scope = CoroutineScope(scope.coroutineContext + ioDispatcher),
-//            migrations = listOf(
-//                IntToStringIdsMigration,
-//            ),
         ) {
             context.dataStoreFile("user_preferences.json")
         }
@@ -86,3 +78,4 @@ object AppModule {
     }
 
 }
+

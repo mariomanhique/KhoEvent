@@ -14,6 +14,7 @@ import com.mariomanhique.khoevent.presentation.screens.home.HomeViewModel
 @Composable
 fun CommunityScreen(
     onValueChange: (String) -> Unit,
+    navigateToEventDetails: () -> Unit,
     homeViewModel: CommunityViewModel = hiltViewModel()
 ){
     var searchValue by remember {
@@ -29,7 +30,8 @@ fun CommunityScreen(
                 onValueChange = {
                     searchValue = it
                 },
-                eventsList = (eventsList as Result.Success<List<Event>>).data
+                eventsList = (eventsList as Result.Success<List<Event>>).data,
+                navigateToEventDetails = navigateToEventDetails
             )
         } else ->{
 

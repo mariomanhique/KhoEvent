@@ -9,11 +9,11 @@ import com.mariomanhique.khoevent.presentation.screens.splash.SplashScreen
 
 const val splashRoute = "splashRoute"
 fun NavGraphBuilder.splashRoute(
-    navigateToSignIn: () -> Unit,
+    navigateToHome: () -> Unit,
 ){
     composable(splashRoute){
         SplashScreen {
-            navigateToSignIn()
+            navigateToHome()
         }
     }
 }

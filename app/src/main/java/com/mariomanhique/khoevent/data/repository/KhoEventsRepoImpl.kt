@@ -5,6 +5,7 @@ import com.mariomanhique.khoevent.model.AuthenticationRequest
 import com.mariomanhique.khoevent.model.Communities
 import com.mariomanhique.khoevent.model.Event
 import com.mariomanhique.khoevent.model.EventRequest
+import com.mariomanhique.khoevent.model.ResponseStatus
 import com.mariomanhique.khoevent.network.KhoEventsApi
 import java.net.HttpURLConnection
 import javax.inject.Inject
@@ -19,7 +20,11 @@ class KhoEventsRepoImpl @Inject constructor (private val api: KhoEventsApi): Kho
         return api.getEvents()
     }
 
-   override suspend fun authenticateUser(email: String, password: String): String? {
+    override suspend fun getEventsByCommunityId(communityId: Int): List<Event> {
+        return api.getEventsByCommunityId(communityId)
+    }
+
+    override suspend fun authenticateUser(email: String, password: String): String? {
       return try {
           val response = api.authenticateUser(AuthenticationRequest(email, password))
 
@@ -44,7 +49,7 @@ class KhoEventsRepoImpl @Inject constructor (private val api: KhoEventsApi): Kho
         authorizationHeader: String,
         communityId: Long,
         eventRequest: EventRequest
-    ): String? {
+    ): String {
         return try {
            val response = api.createEvent(
                authorizationHeader = authorizationHeader,
@@ -53,18 +58,12 @@ class KhoEventsRepoImpl @Inject constructor (private val api: KhoEventsApi): Kho
                )
 
             if (response.isSuccessful){
-                Log.d("Code", "createEvent: Success ${response.code()}")
-                response.code().toString()
+               response.body()?.responseCode.toString()
             } else{
-                Log.d("Code", "createEvent: Error ${response.headers()}")
-                Log.d("Code", "createEvent: Error ${response.raw()}")
-                Log.d("Code", "createEvent: Error ${response.code()}")
-                Log.d("Code", "createEvent: Error ${response.errorBody()}")
                 response.errorBody().toString()
             }
         } catch (e: Exception){
-            e.printStackTrace()
-            e.message.toString()
+           e.message.toString()
         }
 
 

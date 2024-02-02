@@ -14,7 +14,7 @@ import kotlinx.coroutines.delay
 
 @Composable
 fun SplashScreen(
-    navigateToSignIn: () -> Unit,
+    navigateToHome: () -> Unit,
 ){
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -27,7 +27,7 @@ fun SplashScreen(
 
     LaunchedEffect(key1 = Unit){
         delay(5000L)
-        navigateToSignIn()
+        navigateToHome()
     }
 
 

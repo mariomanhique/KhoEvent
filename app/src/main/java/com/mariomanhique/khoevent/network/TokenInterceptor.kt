@@ -9,7 +9,7 @@
 //import kotlinx.coroutines.flow.map
 //import kotlinx.coroutines.withContext
 //import okhttp3.Interceptor
-//import okhttp3.Response
+//import okhttp3.ResponseStatus
 //import javax.inject.Inject
 //
 //class TokenInterceptor @Inject constructor(
@@ -19,7 +19,7 @@
 //    private var token: String? = null
 //
 //
-//    override fun intercept(chain: Interceptor.Chain): Response {
+//    override fun intercept(chain: Interceptor.Chain): ResponseStatus {
 //        val originalRequest = chain.request()
 //
 //

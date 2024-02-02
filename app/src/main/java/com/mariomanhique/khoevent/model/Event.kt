@@ -10,4 +10,3 @@ data class Event(
     val title: String
 )
 
-val eventList = listOf(Event("","","",100,1,"",""))

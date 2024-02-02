@@ -1,4 +1,9 @@
 package com.mariomanhique.khoevent.presentation.screens.details
 
-class EventDetailsScreen {
+import androidx.compose.runtime.Composable
+
+
+@Composable
+fun EventDetailsScreen() {
+    EventDetailsContent()
 }

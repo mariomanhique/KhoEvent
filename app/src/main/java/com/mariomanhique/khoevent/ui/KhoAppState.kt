@@ -10,6 +10,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mariomanhique.khoevent.presentation.screens.auth.signIn.navigation.navigateToSignIn
 import com.mariomanhique.khoevent.presentation.screens.community.navigation.navigateToCommunity
+import com.mariomanhique.khoevent.presentation.screens.eventCreation.navigation.navigateToCreateEvent
 import kotlinx.coroutines.CoroutineScope
 
 @Composable
@@ -43,6 +44,9 @@ class KhoAppState(
         @Composable get() = navController
             .currentBackStackEntryAsState().value?.destination
 
+    fun navigateToCreateEvent(){
+        navController.navigateToCreateEvent()
+    }
     fun navigateToCommunityEvents(){
         navController.navigateToCommunity()
     }

@@ -9,6 +9,10 @@ import com.mariomanhique.khoevent.presentation.screens.auth.signIn.navigation.si
 import com.mariomanhique.khoevent.presentation.screens.auth.signUp.navigation.navigateToSignUp
 import com.mariomanhique.khoevent.presentation.screens.auth.signUp.navigation.signUpRoute
 import com.mariomanhique.khoevent.presentation.screens.community.navigation.communityRoute
+import com.mariomanhique.khoevent.presentation.screens.community.navigation.navigateToCommunity
+import com.mariomanhique.khoevent.presentation.screens.details.navigation.eventDetailsRoute
+import com.mariomanhique.khoevent.presentation.screens.details.navigation.navigateToEventDetails
+import com.mariomanhique.khoevent.presentation.screens.eventCreation.navigation.createEventRoute
 import com.mariomanhique.khoevent.presentation.screens.home.navigation.homeRoute
 import com.mariomanhique.khoevent.presentation.screens.home.navigation.navigateToHome
 import com.mariomanhique.khoevent.presentation.screens.search.navigation.navigateToSecondSearch
@@ -20,7 +24,7 @@ import com.mariomanhique.khoevent.ui.KhoAppState
 @Composable
 fun KhoNavHost(
     appState: KhoAppState,
-    startDestination: String = homeRoute,
+    startDestination: String = splashRoute,
     onMenuClicked: () -> Unit = {},
     paddingValues: PaddingValues
 ) {
@@ -30,11 +34,11 @@ fun KhoNavHost(
     NavHost(navController = navController, startDestination = startDestination){
 
         splashRoute{
-            navController.navigateToSignIn()
+            navController.navigateToHome()
         }
         signInRoute(
             navigateToHome = {
-                 navController.navigateToHome()
+                 navController.navigateToCommunity()
             },
             navigateToSignUp = {
                 navController.navigateToSignUp()
@@ -49,12 +53,20 @@ fun KhoNavHost(
             })
 
         homeRoute(
-            onMenuClicked = onMenuClicked
+            onMenuClicked = onMenuClicked,
+            navigateToEventDetails = navController::navigateToEventDetails
         )
 
         communityRoute(
-            onValueChange = {}
+            onValueChange = {},
+            navigateToEventDetails = navController::navigateToEventDetails
         )
+
+        createEventRoute(
+            navigateToCommunityEvents = navController::navigateToCommunity
+        )
+
+        eventDetailsRoute()
 
         searchGraph(
             onSearchClicked = navController::navigateToSecondSearch,

@@ -79,7 +79,7 @@ fun KhoContent(
                         modifier = Modifier
                             .padding(4.dp),
                         containerColor = KhoButtonsColors.buttonColor,
-                        onClick = {}
+                        onClick = appState::navigateToCreateEvent
                     ) {
                         Box(
                             modifier = Modifier
@@ -87,6 +87,7 @@ fun KhoContent(
                             Icon(
                                 modifier = Modifier,
                                 imageVector = Icons.Default.Add,
+                                tint = KhoButtonsColors.white,
                                 contentDescription = ""
                             )
                         }

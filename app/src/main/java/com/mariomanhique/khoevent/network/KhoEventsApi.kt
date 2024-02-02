@@ -4,6 +4,7 @@ import com.mariomanhique.khoevent.model.AuthenticationRequest
 import com.mariomanhique.khoevent.model.Communities
 import com.mariomanhique.khoevent.model.Event
 import com.mariomanhique.khoevent.model.EventRequest
+import com.mariomanhique.khoevent.model.ResponseStatus
 import com.mariomanhique.khoevent.model.TokenResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -24,18 +25,24 @@ interface KhoEventsApi {
     suspend fun getEvents():List<Event>
 
     @GET("events/{id}")
-    suspend fun getEventsById():List<Event>
+    suspend fun getEventById(
+        @Path("id") eventId: String
+    ):Event
 
     @POST("auth/authenticate")
     suspend fun authenticateUser(@Body request: AuthenticationRequest): Response<TokenResponse>
 
-
     @POST("events/{id}")
     suspend fun createEvent(
         @Header("Authorization") authorizationHeader: String,
-        @Path("id") communityId: Long,
+        @Path(value = "id") communityId: Long,
         @Body request: EventRequest
-    ): Response<String>
+    ): Response<ResponseStatus>
+
+    @GET("events/community/{id}")
+    suspend fun getEventsByCommunityId(
+        @Path(value = "id") communityId: Int
+    ):List<Event>
 }
 
 

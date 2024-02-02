@@ -13,10 +13,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.RemoveRedEye
 import androidx.compose.material.icons.rounded.ArrowBack
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -41,9 +44,10 @@ import com.mariomanhique.khoevent.presentation.components.AuthTextEvents
 import com.mariomanhique.khoevent.presentation.components.InputTextField
 import com.mariomanhique.khoevent.presentation.components.KhoButton
 import com.mariomanhique.khoevent.presentation.components.KhoIcon
+import com.mariomanhique.khoevent.utils.KhoButtonsColors
 import com.mariomanhique.khoevent.utils.fontFamily
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun SignUpContent(
     onSignUpClicked: (String, String, String, String) -> Unit,
@@ -121,17 +125,17 @@ fun SignUpContent(
         InputTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
-                .shadow(
-                    elevation = 2.dp,
-                    shape = MaterialTheme.shapes.medium,
-                    spotColor = MaterialTheme.colorScheme.primary
-                ),
+                .padding(8.dp),
             value = communityName,
             onValueChange = {
                 communityName = it
             },
             leadingIcon = R.drawable.profile,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                cursorColor = KhoButtonsColors.buttonColor,
+                unfocusedIndicatorColor = Color.Unspecified,
+                focusedIndicatorColor = Color.Unspecified),
             placeholder = R.string.community,
             focusManager = focusManager,
             keyboardType = KeyboardType.Text,
@@ -144,17 +148,17 @@ fun SignUpContent(
         InputTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
-                .shadow(
-                    elevation = 2.dp,
-                    shape = MaterialTheme.shapes.medium,
-                    spotColor = MaterialTheme.colorScheme.primary
-                ),
+                .padding(8.dp),
             value = email,
             onValueChange = {
                 email = it
             },
             leadingIcon = R.drawable.email,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                cursorColor = KhoButtonsColors.buttonColor,
+                unfocusedIndicatorColor = Color.Unspecified,
+                focusedIndicatorColor = Color.Unspecified),
             placeholder = R.string.username,
             focusManager = focusManager,
             keyboardType = KeyboardType.Text,
@@ -167,17 +171,17 @@ fun SignUpContent(
         InputTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
-                .shadow(
-                    elevation = 2.dp,
-                    shape = MaterialTheme.shapes.medium,
-                    spotColor = MaterialTheme.colorScheme.primary
-                ),
+                .padding(8.dp),
             value = password,
             onValueChange = {
                 password = it
             },
             leadingIcon = R.drawable.lock,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                cursorColor = KhoButtonsColors.buttonColor,
+                unfocusedIndicatorColor = Color.Unspecified,
+                focusedIndicatorColor = Color.Unspecified),
             placeholder = R.string.password,
             trailingIcon = Icons.Default.RemoveRedEye,
             iconTint = if(passwordVisibility)
@@ -196,17 +200,17 @@ fun SignUpContent(
         InputTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
-                .shadow(
-                    elevation = 2.dp,
-                    shape = MaterialTheme.shapes.medium,
-                    spotColor = MaterialTheme.colorScheme.primary
-                ),
+                .padding(8.dp),
             value = repeatedPassword,
             onValueChange = {
                 repeatedPassword = it
             },
             leadingIcon = R.drawable.lock,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = MaterialTheme.colorScheme.inverseOnSurface,
+                cursorColor = KhoButtonsColors.buttonColor,
+                unfocusedIndicatorColor = Color.Unspecified,
+                focusedIndicatorColor = Color.Unspecified),
             placeholder = R.string.confirm_password,
             trailingIcon = Icons.Default.RemoveRedEye,
             iconTint = if(passwordVisibility)
